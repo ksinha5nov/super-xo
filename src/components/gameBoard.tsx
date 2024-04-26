@@ -1,25 +1,26 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Board, BoxValue, Player } from "../types/types";
+import { Board, BoxValue, Player, Result } from "../types/types";
 
-const GameBoard: React.FC<GameBoardProps> = () => {
+const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}) => {
 
-    const [turn, setTurn] = useState<Player>(1);
+    //const [turn, setTurn] = useState<Player>(1);
     const [board, setBoard] = useState<Board>(Array(9).fill(""))
     const [finish, setFinish] = useState<boolean>(false);
     const boardId = useRef(1);
 
     useEffect(() => {
         if (checkWinCondition()) {
-            // props.setResult(turn);
-            setTimeout(() => { alert(`${turn} won`) }, 1);
+            setResult(turn === 1 ? 'X': 'O');
+            //setTimeout(() => { alert(`${turn} won`) }, 1);
             setFinish(true);
         } else {
-            setTurn(prev => prev === 1 ? 2 : 1);
+            
         }
+        
     }, [board]);
 
     function fillOnClick(e: SyntheticEvent) {
-        if (finish) {
+        if (finish || disabled) {
             return;
         }
         const position = parseInt(e.currentTarget.id[1]);
@@ -78,7 +79,7 @@ const GameBoard: React.FC<GameBoardProps> = () => {
     return (<>
         <div className="grid grid-cols-3 gap-1">
             {board.map((val, idx) => (
-                <div key={idx} id={`${boardId.current}${idx}`} className="h-20 w-20 text-2xl cursor-pointer bg-white text-black flex items-center justify-center transition-all" onClick={e => fillOnClick(e)}>{val}</div>
+                <div key={idx} id={`${boardId.current}${idx}`} className="h-16 w-16 text-2xl cursor-pointer bg-white text-black flex items-center justify-center transition-all" onClick={e => fillOnClick(e)}>{val}</div>
             ))}
         </div>
     </>);
@@ -87,6 +88,8 @@ const GameBoard: React.FC<GameBoardProps> = () => {
 export default GameBoard;
 
 export interface GameBoardProps {
-    turn?: Player;
-    setResult?: (turn: Player) => void;
+    turn: Player;
+    setResult: (turn: Result) => void;
+    onMove: (turn: Player) => void;
+    disabled: boolean;
 }
