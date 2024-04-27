@@ -10,7 +10,7 @@ const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}
 
     useEffect(() => {
         if (checkWinCondition()) {
-            setResult(turn === 1 ? 'X': 'O');
+            setResult(turn === 1 ? 'O': 'X');
             //setTimeout(() => { alert(`${turn} won`) }, 1);
             setFinish(true);
         } else {
@@ -23,6 +23,7 @@ const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}
         if (finish || disabled) {
             return;
         }
+        onMove(turn)
         const position = parseInt(e.currentTarget.id[1]);
         let newVal: BoxValue = "";
         if (board[position]) {
