@@ -1,30 +1,32 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { Board, BoxValue, Player, Result } from "../types/types";
 
-const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}) => {
+const GameBoard: React.FC<GameBoardProps> = ({ setResult, turn, onMove, disabled, id }) => {
 
-    //const [turn, setTurn] = useState<Player>(1);
     const [board, setBoard] = useState<Board>(Array(9).fill(""))
     const [finish, setFinish] = useState<boolean>(false);
-    const boardId = useRef(1);
+    const boardId = useRef(id);
+    const pos = useRef<number>();
 
     useEffect(() => {
-        if (checkWinCondition()) {
-            setResult(turn === 1 ? 'O': 'X');
-            //setTimeout(() => { alert(`${turn} won`) }, 1);
-            setFinish(true);
-        } else {
-            
+        if (board && !board.every(val => val === "")) {
+            if (checkWinCondition()) {
+                setResult(turn === 1 ? 'X' : 'O');
+                setFinish(true);
+            } else if (board.every(val => val !== "")) {
+                setResult("D");
+                setFinish(true);
+            }
+            onMove(pos.current);
         }
-        
     }, [board]);
 
     function fillOnClick(e: SyntheticEvent) {
         if (finish || disabled) {
             return;
         }
-        onMove(turn)
         const position = parseInt(e.currentTarget.id[1]);
+        pos.current = position;
         let newVal: BoxValue = "";
         if (board[position]) {
             e.stopPropagation();
@@ -40,7 +42,6 @@ const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}
     }
 
     function checkWinCondition() {
-
         console.log(board);
 
         //columns check
@@ -72,15 +73,21 @@ const GameBoard: React.FC<GameBoardProps> = ({setResult, turn, onMove, disabled}
         }
 
         //diagonal check 
-        if (board[0] !== "" && board[4] !== "" && board[8] !== "" && board[0] === board[4] && board[4] === board[8]) return true;
-        if (board[2] !== "" && board[4] !== "" && board[6] !== "" && board[2] === board[4] && board[4] === board[6]) return true;
+        if (board[0] !== "" && board[0] === board[4] && board[4] === board[8]) return true;
+        if (board[2] !== "" && board[2] === board[4] && board[4] === board[6]) return true;
         return false;
     }
 
     return (<>
-        <div className="grid grid-cols-3 gap-1">
+        <div className="grid grid-cols-3 gap-1" style={!disabled ? { boxShadow: "#999999 0px 0px 20px 1px" } : {}}>
             {board.map((val, idx) => (
-                <div key={idx} id={`${boardId.current}${idx}`} className="h-16 w-16 text-2xl cursor-pointer bg-white text-black flex items-center justify-center transition-all" onClick={e => fillOnClick(e)}>{val}</div>
+                <div key={idx} id={`${boardId.current}${idx}`}
+                    className="h-16 w-16 text-2xl cursor-pointer bg-white text-black flex items-center justify-center transition-all"
+                    style={disabled ? { cursor: "not-allowed" } : { cursor: "pointer" }}
+                    onClick={e => fillOnClick(e)}
+                >
+                    {val}
+                </div>
             ))}
         </div>
     </>);
@@ -91,6 +98,7 @@ export default GameBoard;
 export interface GameBoardProps {
     turn: Player;
     setResult: (turn: Result) => void;
-    onMove: (turn: Player) => void;
+    onMove: (turn: number | undefined) => void;
     disabled: boolean;
+    id: number;
 }

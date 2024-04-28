@@ -1,38 +1,54 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Board, BoxValue, Player, Result } from "../types/types";
+import React, { useEffect, useState } from "react";
+import { Player, Result } from "../types/types";
 import GameBoard from "./gameBoard";
 
 const SuperBoard: React.FC<SuperBoardProps> = () => {
   const [turn, setTurn] = useState<Player>(1);
   const [board, setBoard] = useState<Result[]>(Array(9).fill(""));
   const [finish, setFinish] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean[]>(Array(9).fill(false));
-  const boardId = useRef(1);
+  const [disabled, setDisabled] = useState<(boolean | "")[]>(Array(9).fill(false));
 
   useEffect(() => {
-    if (checkWinCondition()) {
-      // props.setResult(turn);
-      setTimeout(() => {
-        alert(`${turn} won`);
-      }, 1);
-      setFinish(true);
-    } else {
-      setTurn((prev) => (prev === 1 ? 2 : 1));
+    if (board && !board.every(val => val === "")) {
+      const winner = checkWinCondition();
+      if (winner) {
+        setTimeout(() => {
+          alert(`${winner} won`);
+        }, 1);
+        setFinish(true);
+      } else if (board.every(val => val !== "")) {
+        setTimeout(() => {
+          alert(`Draw`);
+        }, 1);
+        setFinish(true);
+      }
     }
   }, [board]);
 
-  function setResult(position: number, result: Result) {
-    if (finish) {
-      return;
-    }
+  function setResult(boardPos: number, result: Result) {
+    setDisabled(prev => {
+      const arr = [...prev];
+      arr[boardPos] = "";
+      return arr;
+    });
     setBoard((prev) => {
       const arr = [...prev];
-      arr[position] = result;
+      arr[boardPos] = result;
       return arr;
     });
   }
 
-  function onMove() {
+  function onMove(position: number | undefined) {
+    if (typeof position === "undefined") return;
+    setDisabled(prev => {
+      let arr;
+      if (prev[position] === "") {
+        arr = prev.map((disabled) => disabled !== "" ? false : "");
+      } else {
+        arr = prev.map((disabled, idx) => disabled !== "" ? idx === position ? false : true : "");
+      }
+      return arr;
+    });
     setTurn(prev => prev === 1 ? 2 : 1);
   }
 
@@ -49,7 +65,7 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
         }
       }
       if (j >= 9) {
-        return true;
+        return currVal;
       }
     }
 
@@ -63,55 +79,39 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
         }
       }
       if (j >= i + 3) {
-        return true;
+        return currVal;
       }
     }
 
     //diagonal check
-    if (
-      board[0] !== "" &&
-      board[4] !== "" &&
-      board[8] !== "" &&
-      board[0] === board[4] &&
-      board[4] === board[8]
-    )
-      return true;
-    if (
-      board[2] !== "" &&
-      board[4] !== "" &&
-      board[6] !== "" &&
-      board[2] === board[4] &&
-      board[4] === board[6]
-    )
-      return true;
+    if ((board[0] !== "" && board[0] === board[4] && board[4] === board[8])
+      || (board[2] !== "" && board[2] === board[4] && board[4] === board[6])) return board[4];
     return false;
   }
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 place-items-center">
         {board.map(
-          (val, idx) =>
-            val === "" ? (
-              <GameBoard
-                setResult={(result: Result) => setResult(idx, result)}
-                turn={turn}
-                onMove={onMove}
-                disabled = {disabled[idx]}
-              />
-            ) : (
-              <div>{val}</div>
-            )
-          /*<GameBoard setResult={(result: Result) => setResult(idx, result)}></GameBoard>*/
+          (val, idx) => val === "" ? (
+            <GameBoard
+              key={idx}
+              id={idx}
+              setResult={(result: Result) => setResult(idx, result)}
+              turn={turn}
+              onMove={onMove}
+              disabled={finish || !!disabled[idx]}
+            />
+          ) : (
+            <div className="h-48 w-48 m-1 text-2xl bg-white text-black flex items-center justify-center transition-all">{val}</div>
+          )
         )}
       </div>
+      <div className="m-28 text-5xl">Turn: {turn === 1 ? "X" : "O"}</div>
     </>
   );
 };
 
 export default SuperBoard;
 
-export interface SuperBoardProps {
-  turn?: Player;
-  setResult?: (turn: Player) => void;
-}
+export interface SuperBoardProps { }

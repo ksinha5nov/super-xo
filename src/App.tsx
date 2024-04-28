@@ -1,4 +1,3 @@
-import GameBoard from './components/gameBoard'
 import SuperBoard from './components/superBoard'
 
 function App() {
