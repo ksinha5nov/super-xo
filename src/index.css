@@ -9,7 +9,10 @@
 }
 
 body {
-  background-color: #212121;
+  /*background-color: #212121*/
+  background-image: url("E:/Wanderlist/typescript tutorial/super-xo/src/super-xo bg.png");
+  background: 'no-repeat center center fixed';
+  background-size: 10cqmax;
   color: white;
-  padding: 20px;
+  padding: 0px;
 }

@@ -1,3 +1,4 @@
+import LandingPage from './components/landingPage'
 import SuperBoard from './components/superBoard'
 
 function App() {
@@ -5,10 +6,12 @@ function App() {
   return (
     <>
       <div className='flex flex-col items-center'>
-        <SuperBoard />
+        <LandingPage />
+        {/*<SuperBoard />*/}
       </div>
     </>
   )
 }
 
 export default App
+
