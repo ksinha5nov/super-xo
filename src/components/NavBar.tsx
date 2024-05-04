@@ -65,7 +65,7 @@ const NavBar = () => {
 
   return (
     <div style={navBarStyle}>
-      <div style={titleStyle}>XO</div>
+      <Link to={"/"}><div style={titleStyle}>XO</div></Link>
       <div style={linksStyle}>
         <Link to={"/super"}><button style={buttonStyle}>Super</button></Link>
         <Link to={"/regular"}><button style={buttonStyle}>Regular</button></Link>
