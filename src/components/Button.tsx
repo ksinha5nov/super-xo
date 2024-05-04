@@ -9,13 +9,12 @@ interface ButtonProps {
 const Buttons = ({ name }: ButtonProps) => {
     return (
         <div className='hover:'>
-            <Button variant="contained" color="secondary">
-                {/* <Box
+            <Button variant="contained" color="secondary" 
                 sx={{
                     display: 'flex',
                     border: '1px solid grey', 
-                    fontWeight: 'Bold',
-                    fontFamily: 'serif', 
+                    fontWeight: 'normal',
+                    fontFamily: 'Bangers', 
                     height: 40,
                     width: 200,
                     // color: "success",
@@ -29,8 +28,7 @@ const Buttons = ({ name }: ButtonProps) => {
                         transform: "scale3d(1.15, 1.15, 1)", 
                         transition: "transform 0.2s ease-in-out"
                     }
-                }}
-            > */}
+                }}>
                 {name}
 
                 {/* </Box> */}

@@ -16,19 +16,13 @@ const NavBar = () => {
     borderBottom: '5px solid black',  // Adds a white border at the bottom
     width: '100%',
     background: 'black',  // Ensure the nav bar takes up 100% of the width
-    marginBottom: '20px',
+    //marginBottom: '20px',
     height: '80px'
   };
 
-  const mainStyle = {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  };
-
   const titleStyle = {
-    fontSize: '24px',
+    fontSize: '40px',
+    marginLeft: '20px',
     alignItems: 'center',
     justifyItems: 'center',
   };

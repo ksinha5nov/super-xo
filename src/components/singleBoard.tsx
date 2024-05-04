@@ -39,7 +39,7 @@ const SingleBoard: React.FC<SingleBoardProps> = () => {
     }
 
     return (<>
-        <div className="grid grid-cols-3 gap-1">
+        <div className=" mt-20 grid grid-cols-3 gap-1">
             {board.map((val, idx) => (
                 <div key={idx} id={`${boardId.current}${idx}`} className="h-20 w-20 text-2xl cursor-pointer bg-white text-black flex items-center justify-center transition-all" onClick={e => fillOnClick(e)}>{val}</div>
             ))}

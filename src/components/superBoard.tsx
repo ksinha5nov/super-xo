@@ -55,8 +55,8 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
 
   return (
     <>
-      <div className="flex items-center flex-col gap-28">
-        <div className="grid grid-cols-3 gap-4 place-items-center">
+      <div className="mt-5 flex items-center gap-28">
+        <div className="grid grid-cols-3 gap-3 place-items-center">
           {board.map(
             (val, idx) => val === "" ? (
               <GameBoard
@@ -72,7 +72,7 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
             )
           )}
         </div>
-        <div className="text-5xl">Turn: {turn === 1 ? "X" : "O"}</div>
+        <div className=" font-banger text-5xl">Turn : {turn === 1 ? "X" : "O"}</div>
       </div>
     </>
   );
