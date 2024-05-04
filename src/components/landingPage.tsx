@@ -57,34 +57,10 @@ const LandingPage = () => {
     alignItems: 'center'
   };
 
-  const [open, setOpen] = useState<boolean>(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
     const types_of_buttons = ["Super-XO", "Tic-Tac-Toe"]
 
   return (
-    <div style={containerStyle}>
-      <div style={navBarStyle}>
-        <div style={titleStyle}>XO</div>
-        <button onClick={handleOpen} style={buttonStyle}>How to Play</button>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-      >
-        <Box sx = {modalStyle}>
-            <Typography id="modal-modal-title" variant='h5' component='h2' alignItems='center'>
-                How To Play?
-            </Typography>
-
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Just play man!
-            </Typography>
-        </Box>
-      </Modal>
-      </div>
+    <div>
       <div style={{fontFamily: 'serif', fontSize: '36px', fontWeight: 'bold', textAlign: 'center', color: 'black', background: 'pink'}}>
         <h1>Super-XO!</h1>
       </div>
