@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { Board, BoxValue, Player, Result } from "../types/types";
+import { checkWinCondition } from "../core/utils";
 
 const GameBoard: React.FC<GameBoardProps> = ({ setResult, turn, onMove, disabled, id }) => {
 
@@ -10,7 +11,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ setResult, turn, onMove, disabled
 
     useEffect(() => {
         if (board && !board.every(val => val === "")) {
-            if (checkWinCondition()) {
+            if (checkWinCondition(board)) {
                 setResult(turn === 1 ? 'X' : 'O');
                 setFinish(true);
             } else if (board.every(val => val !== "")) {
@@ -39,43 +40,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ setResult, turn, onMove, disabled
             arr[position] = newVal;
             return arr;
         });
-    }
-
-    function checkWinCondition() {
-        console.log(board);
-
-        //columns check
-        for (let i = 0; i < 3; i++) {
-            const currVal = board[i];
-            let j = i;
-            for (j; j < 9; j += 3) {
-                if (currVal === "" || board[j] === "" || board[j] !== currVal) {
-                    break;
-                }
-            }
-            if (j >= 9) {
-                return true;
-            }
-        }
-
-        //rows check
-        for (let i = 0; i < 9; i += 3) {
-            const currVal = board[i];
-            let j = i;
-            for (j; j < i + 3; j++) {
-                if (currVal === "" || board[j] === "" || board[j] !== currVal) {
-                    break;
-                }
-            }
-            if (j >= i + 3) {
-                return true;
-            }
-        }
-
-        //diagonal check 
-        if (board[0] !== "" && board[0] === board[4] && board[4] === board[8]) return true;
-        if (board[2] !== "" && board[2] === board[4] && board[4] === board[6]) return true;
-        return false;
     }
 
     return (<>

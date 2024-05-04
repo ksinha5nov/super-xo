@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Player, Result } from "../types/types";
 import GameBoard from "./gameBoard";
+import { checkWinCondition } from "../core/utils";
 
 const SuperBoard: React.FC<SuperBoardProps> = () => {
   const [turn, setTurn] = useState<Player>(1);
@@ -10,7 +11,7 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
 
   useEffect(() => {
     if (board && !board.every(val => val === "")) {
-      const winner = checkWinCondition();
+      const winner = checkWinCondition(board);
       if (winner) {
         setTimeout(() => {
           alert(`${winner} won`);
@@ -50,43 +51,6 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
       return arr;
     });
     setTurn(prev => prev === 1 ? 2 : 1);
-  }
-
-  function checkWinCondition() {
-    console.log(board);
-
-    //columns check
-    for (let i = 0; i < 3; i++) {
-      const currVal = board[i];
-      let j = i;
-      for (j; j < 9; j += 3) {
-        if (currVal === "" || board[j] === "" || board[j] !== currVal) {
-          break;
-        }
-      }
-      if (j >= 9) {
-        return currVal;
-      }
-    }
-
-    //rows check
-    for (let i = 0; i < 9; i += 3) {
-      const currVal = board[i];
-      let j = i;
-      for (j; j < i + 3; j++) {
-        if (currVal === "" || board[j] === "" || board[j] !== currVal) {
-          break;
-        }
-      }
-      if (j >= i + 3) {
-        return currVal;
-      }
-    }
-
-    //diagonal check
-    if ((board[0] !== "" && board[0] === board[4] && board[4] === board[8])
-      || (board[2] !== "" && board[2] === board[4] && board[4] === board[6])) return board[4];
-    return false;
   }
 
   return (

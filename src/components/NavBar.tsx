@@ -5,9 +5,9 @@ const NavBar = () => {
 
     const containerStyle = {
         //display: 'flex',
-        Margin: '0px',
+        marginBottom: '20px',
         flexDirection: 'column',
-        height: '90vh',
+        height: '90px',
         width: '100%',  // Ensure the container takes up 100% of the viewport width
         color: 'white', 
         backgroundSize: 'cover'
