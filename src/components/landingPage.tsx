@@ -71,11 +71,11 @@ const LandingPage = () => {
 
   return (
     <div className='w-full flex flex-col gap-48'>
-      <div style={{ fontFamily: 'serif', fontSize: '36px', fontWeight: 'bold', textAlign: 'center', color: 'black', background: 'pink' }}>
+      <div style={{ fontFamily: 'Bangers, cursive', fontSize: '60px', fontWeight: 'normal', textAlign: 'center', color: 'white', background: 'secondary' }}>
         <h1>Super-XO!</h1>
       </div>
       <div>
-        <Stack direction='row' spacing='4in' alignItems='center' justifyContent='center'>
+        <Stack direction='row' spacing='4in' alignItems='center' justifyContent='center' marginTop= '100px'>
           {Modes.map((mode) => (
             <Link to={mode.route}><Buttons name={mode.name} /></Link>
           ))}
