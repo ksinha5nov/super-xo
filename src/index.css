@@ -9,10 +9,11 @@
 }
 
 body {
+  height: 100dvh;
   background-color: #212121;
   /* background-image: url("/src/assets/super-xo-bg.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
-  padding: 0px;
+  padding: 120px 20px  0;
 }

@@ -55,23 +55,25 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4 place-items-center">
-        {board.map(
-          (val, idx) => val === "" ? (
-            <GameBoard
-              key={idx}
-              id={idx}
-              setResult={(result: Result) => setResult(idx, result)}
-              turn={turn}
-              onMove={onMove}
-              disabled={finish || !!disabled[idx]}
-            />
-          ) : (
-            <div className="h-48 w-48 m-1 text-2xl bg-white text-black flex items-center justify-center transition-all">{val}</div>
-          )
-        )}
+      <div className="flex items-center flex-col gap-28">
+        <div className="grid grid-cols-3 gap-4 place-items-center">
+          {board.map(
+            (val, idx) => val === "" ? (
+              <GameBoard
+                key={idx}
+                id={idx}
+                setResult={(result: Result) => setResult(idx, result)}
+                turn={turn}
+                onMove={onMove}
+                disabled={finish || !!disabled[idx]}
+              />
+            ) : (
+              <div className="h-48 w-48 m-1 text-2xl bg-white text-black flex items-center justify-center transition-all">{val}</div>
+            )
+          )}
+        </div>
+        <div className="text-5xl">Turn: {turn === 1 ? "X" : "O"}</div>
       </div>
-      <div className="m-28 text-5xl">Turn: {turn === 1 ? "X" : "O"}</div>
     </>
   );
 };
