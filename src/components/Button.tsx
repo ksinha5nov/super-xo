@@ -2,15 +2,15 @@ import React from 'react'
 import { Box, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
 
-interface ButtonProps{
+interface ButtonProps {
     name: string;
 }
 
-const Buttons = ({name}: ButtonProps) => {
-  return (
-    <div>
-        <Button variant="contained" color= "secondary">
-            <Box
+const Buttons = ({ name }: ButtonProps) => {
+    return (
+        <div className='hover:'>
+            <Button variant="contained" color="secondary">
+                {/* <Box
                 sx={{
                     display: 'flex',
                     border: '1px solid grey', 
@@ -18,23 +18,25 @@ const Buttons = ({name}: ButtonProps) => {
                     fontFamily: 'serif', 
                     height: 40,
                     width: 200,
-                    color: "success",
+                    // color: "success",
+                    backgroundColor:"success",
                     fontSize: 20,
                     alignItems: 'center', 
                     justifyContent: 'center', 
                     '&:hover': {
-                        color: "error",
+                        // color: "error",
+                        backgroundColor:"error",
                         transform: "scale3d(1.15, 1.15, 1)", 
                         transition: "transform 0.2s ease-in-out"
                     }
                 }}
-            >
+            > */}
                 {name}
 
-            </Box>
-        </Button>
-    </div>
-  )
+                {/* </Box> */}
+            </Button>
+        </div>
+    )
 }
 
 export default Buttons

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Buttons from './Button';
 import { Box, Modal, Stack, Typography } from '@mui/material';
 import { Margin } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   const containerStyle = {
@@ -10,7 +11,7 @@ const LandingPage = () => {
     flexDirection: 'column',
     height: '90vh',
     width: '100%',  // Ensure the container takes up 100% of the viewport width
-    color: 'white', 
+    color: 'white',
     backgroundSize: 'cover'
   };
 
@@ -57,21 +58,27 @@ const LandingPage = () => {
     alignItems: 'center'
   };
 
-    const types_of_buttons = ["Super-XO", "Tic-Tac-Toe"]
+  const Modes = [
+    {
+      name: "Super-XO",
+      route: "/super"
+    },
+    {
+      name: "Tic-Tac-Toe",
+      route: "/regular"
+    }
+  ];
 
   return (
-    <div>
-      <div style={{fontFamily: 'serif', fontSize: '36px', fontWeight: 'bold', textAlign: 'center', color: 'black', background: 'pink'}}>
+    <div className='w-full flex flex-col gap-48'>
+      <div style={{ fontFamily: 'serif', fontSize: '36px', fontWeight: 'bold', textAlign: 'center', color: 'black', background: 'pink' }}>
         <h1>Super-XO!</h1>
       </div>
       <div>
-
-      </div>
-      <div style={{margin: '3.5in', alignContent: 'center', marginTop: "4in"}}>
-        <Stack direction= 'row' spacing= '4in' alignItems= 'center'>
-            {types_of_buttons.map((types, index) => (
-                <Buttons name = {types} />
-            ))}
+        <Stack direction='row' spacing='4in' alignItems='center' justifyContent='center'>
+          {Modes.map((mode) => (
+            <Link to={mode.route}><Buttons name={mode.name} /></Link>
+          ))}
         </Stack>
       </div>
     </div>
