@@ -71,7 +71,7 @@ const LandingPage = () => {
 
   return (
     <div className='w-full flex flex-col gap-48'>
-      <div style={{ fontFamily: 'Bangers, cursive', fontSize: '60px', fontWeight: 'normal', textAlign: 'center', color: 'white', background: 'secondary' }}>
+      <div style={{ fontFamily: 'Bangers, cursive', fontSize: '60px', fontWeight: 'normal', textAlign: 'center', color: 'white', background: 'purple' }}>
         <h1>Super-XO!</h1>
       </div>
       <div>
