@@ -8,14 +8,13 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
   const [board, setBoard] = useState<Result[]>(Array(9).fill(""));
   const [finish, setFinish] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<(boolean | "")[]>(Array(9).fill(false));
+  const [winner, setWinner] = useState<Result | false>(false);
 
   useEffect(() => {
     if (board && !board.every(val => val === "")) {
-      const winner = checkWinCondition(board);
-      if (winner) {
-        setTimeout(() => {
-          alert(`${winner} won`);
-        }, 1);
+      const vner = checkWinCondition(board);
+      if (vner) {
+        setWinner(vner);
         setFinish(true);
       } else if (board.every(val => val !== "")) {
         setTimeout(() => {
@@ -72,7 +71,10 @@ const SuperBoard: React.FC<SuperBoardProps> = () => {
             )
           )}
         </div>
-        <div className=" font-banger text-5xl">Turn : {turn === 1 ? "X" : "O"}</div>
+        {finish
+          ? <div className="font-banger text-5xl">{winner === "D" ? "Draw :)" : `${winner} WON !!!`}</div>
+          : <div className="font-banger text-5xl">Turn : {turn === 1 ? "X" : "O"}</div>
+        }
       </div>
     </>
   );
